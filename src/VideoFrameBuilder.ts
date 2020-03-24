@@ -1,6 +1,6 @@
 import Debug from 'debug';
 
-const debug = Debug('playwright-video:VideoFrameBuilder');
+const debug = Debug('pptr-video:VideoFrameBuilder');
 
 interface ScreencastFrame {
   data: Buffer;

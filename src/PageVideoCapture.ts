@@ -1,10 +1,10 @@
 import Debug from 'debug';
-import { Page } from 'playwright-core';
+import { Page } from 'puppeteer';
 import { ScreencastFrameCollector } from './ScreencastFrameCollector';
 import { VideoFrameBuilder } from './VideoFrameBuilder';
 import { VideoWriter } from './VideoWriter';
 
-const debug = Debug('playwright-video:PageVideoCapture');
+const debug = Debug('pptr-video:PageVideoCapture');
 
 interface ConstructorArgs {
   collector: ScreencastFrameCollector;

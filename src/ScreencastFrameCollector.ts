@@ -1,10 +1,10 @@
 import Debug from 'debug';
 import { EventEmitter } from 'events';
-import { ChromiumBrowserContext, Page } from 'playwright-core';
-import { CRSession } from 'playwright-core/lib/chromium/crConnection';
+import { BrowserContext, Page } from 'puppeteer';
+import { CDPSession } from 'puppeteer/lib/Connection';
 import { ensurePageType } from './utils';
 
-const debug = Debug('playwright-video:ScreencastFrameCollector');
+const debug = Debug('pptr-video:ScreencastFrameCollector');
 
 export class ScreencastFrameCollector extends EventEmitter {
   public static async create(page: Page): Promise<ScreencastFrameCollector> {
@@ -19,7 +19,7 @@ export class ScreencastFrameCollector extends EventEmitter {
   }
 
   // public for tests
-  public _client: CRSession;
+  public _client: CDPSession;
   private _page: Page;
   private _stopped = false;
 
@@ -29,8 +29,8 @@ export class ScreencastFrameCollector extends EventEmitter {
   }
 
   private async _buildClient(): Promise<void> {
-    const context = this._page.context() as ChromiumBrowserContext;
-    this._client = await context.newCDPSession(this._page);
+    const context = this._page.context() as BrowserContext;
+    this._client = await context.createCDPSession(this._page);
   }
 
   private _listenForFrames(): void {

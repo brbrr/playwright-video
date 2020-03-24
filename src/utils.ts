@@ -1,6 +1,6 @@
 import { setFfmpegPath as setFluentFfmpegPath } from 'fluent-ffmpeg';
-import { Page } from 'playwright-core';
-import { CRBrowserContext } from 'playwright-core/lib/chromium/crBrowser';
+import { Page } from 'puppeteer';
+import { BrowserContext } from 'puppeteer/lib/Browser';
 
 export const getFfmpegFromModule = (): string | null => {
   try {
@@ -23,7 +23,7 @@ export const ensureFfmpegPath = (): void => {
   const ffmpegPath = getFfmpegPath();
   if (!ffmpegPath) {
     throw new Error(
-      'playwright-video: FFmpeg path not set. Set the FFMPEG_PATH env variable or install ffmpeg-static as a dependency.',
+      'pptr-video: FFmpeg path not set. Set the FFMPEG_PATH env variable or install ffmpeg-static as a dependency.',
     );
   }
 
@@ -33,7 +33,7 @@ export const ensureFfmpegPath = (): void => {
 export const ensurePageType = (page: Page): void => {
   const context = page.context();
 
-  if (!(context as CRBrowserContext).newCDPSession) {
-    throw new Error('playwright-video: page context must be chromium');
+  if (!(context as BrowserContext).createCDPSession) {
+    throw new Error('pptr-video: page context must be chromium');
   }
 };

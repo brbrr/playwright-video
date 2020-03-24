@@ -1,10 +1,10 @@
-import { chromium, devices } from 'playwright';
+import puppeteer, { devices } from 'puppeteer';
 import { saveVideo } from './saveVideo';
 
 (async (): Promise<void> => {
   const iPhone = devices['iPhone 6'];
 
-  const browser = await chromium.launch();
+  const browser = await puppeteer.launch();
   const context = await browser.newContext({
     viewport: iPhone.viewport,
     userAgent: iPhone.userAgent,

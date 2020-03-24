@@ -1,12 +1,12 @@
-import { chromium, firefox } from 'playwright';
-import { CRBrowser } from 'playwright-core/lib/chromium/crBrowser';
+import { browser as br } from 'puppeteer';
+import { Browser } from 'puppeteer/lib/Browser';
 import { ScreencastFrameCollector } from '../src/ScreencastFrameCollector';
 
 describe('ScreencastFrameCollector', () => {
-  let browser: CRBrowser;
+  let browser: Browser;
 
   beforeAll(async () => {
-    browser = await chromium.launch();
+    browser = await br.launch();
   });
 
   afterAll(() => browser.close());
@@ -26,21 +26,6 @@ describe('ScreencastFrameCollector', () => {
 
     await page.close();
   });
-
-  it('throws an error if page context not chromium', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const firefoxBrowser = (await firefox.launch()) as any;
-    const page = await firefoxBrowser.newPage();
-
-    const testFn = (): Promise<ScreencastFrameCollector> =>
-      ScreencastFrameCollector.create(page);
-
-    await expect(testFn()).rejects.toThrow(
-      'playwright-video: page context must be chromium',
-    );
-
-    await firefoxBrowser.close();
-  }, 10000); // increase timeout since Firefox slow to launch
 
   it('disposes the CDP session when stopped', async () => {
     const page = await browser.newPage();

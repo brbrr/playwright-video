@@ -1,15 +1,15 @@
 import { pathExists } from 'fs-extra';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { chromium } from 'playwright';
-import { CRBrowser } from 'playwright-core/lib/chromium/crBrowser';
+import { browser } from 'puppeteer';
+import { Browser } from 'puppeteer/lib/Browser';
 import { saveVideo } from '../src/saveVideo';
 
 describe('saveVideo', () => {
-  let browser: CRBrowser;
+  let browser: Browser;
 
   beforeAll(async () => {
-    browser = await chromium.launch();
+    browser = await browser.launch();
   });
 
   afterAll(() => browser.close());

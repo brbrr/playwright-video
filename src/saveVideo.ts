@@ -1,4 +1,4 @@
-import { Page } from 'playwright-core';
+import { Page } from 'puppeteer';
 import { PageVideoCapture } from './PageVideoCapture';
 
 export const saveVideo = (
